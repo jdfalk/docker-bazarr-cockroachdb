@@ -10,9 +10,9 @@ RUN echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
     -r /app/bazarr/bin/requirements.txt
 
 RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb"/' /app/bazarr/bin/bazarr/app/database.py && \
-  sed -i.bak 's/elif bind.engine.name == \'postgresql\'\://g' /app/bazarr/bin/migrations/env.py && \
-  sed -i.bak 's/bind.execute\(text\(\"SET CONSTRAINTS ALL DEFERRED\;\"\)\)//g' /app/bazarr/bin/migrations/env.py && \
-  sed -i.bak 's/bind.execute\(text\("SET CONSTRAINTS ALL IMMEDIATE\;\"\)\)//g' /app/bazarr/bin/migrations/env.py
+  sed -i.bak "s/elif bind\.engine\.name == \'postgresql\':/# PostgreSQL detected/g" /app/bazarr/bin/migrations/env.py && \
+  sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL DEFERRED;\"\))/# Constraints deferred/' /app/bazarr/bin/migrations/env.py && \
+  sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL IMMEDIATE;\"\))/# Constraints immediate/' /app/bazarr/bin/migrations/env.py
 
 
 # ports and volumes
