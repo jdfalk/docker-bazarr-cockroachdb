@@ -50,7 +50,8 @@ RUN rm -Rf /app/bazarr/bin/bin && \
   echo "UpdateMethod=docker\nBranch=master\nPackageVersion=${BAZARR_VERSION}\nPackageAuthor=linuxserver.io" > /app/bazarr/package_info && \
   curl -o \
   /app/bazarr/bin/pyproject.toml -L \
-  "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/pyproject.toml" && \
+  https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/${BAZARR_VERSION}/pyproject.toml  && \
+  # "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/pyproject.toml" && \
   uv sync --all-extras --dev && \
   uv build && \
   # curl -o \
