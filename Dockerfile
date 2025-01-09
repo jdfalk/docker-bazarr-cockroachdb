@@ -48,6 +48,7 @@ RUN \
   curl -o \
     /app/bazarr/bin/pyproject.toml -L \
     "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/pyproject.toml" && \
+  uv sync --all-extras --dev && \
   uv build && \
   # curl -o \
   #   /app/bazarr/bin/postgres-requirements.txt -L \
