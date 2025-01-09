@@ -32,6 +32,7 @@ RUN \
   mediainfo \
   python3 \
   uv
+RUN apk add --update npm
 
 RUN echo "**** install bazarr ****" && \
   mkdir -p \
@@ -55,10 +56,6 @@ RUN rm -Rf /app/bazarr/bin/bin && \
   /app/bazarr/bin/pyproject.toml -L \
   https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/v1.5.2/pyproject.toml && \
   cat /app/bazarr/bin/pyproject.toml
-# RUN curl -o \
-# pyproject.toml -L \
-# https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/v1.5.2/pyproject.toml && \
-# cat pyproject.toml
 
 RUN uv venv /lsiopy
 
