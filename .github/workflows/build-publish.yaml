@@ -59,17 +59,17 @@ jobs:
           tags: |
             # set latest tag for default branch
             type=raw,value=latest,enable={{is_default_branch}}
-      - name: Grab uv.lock
-        run: curl -o uv.lock -L https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/master/uv.lock
-      - name: Install uv
-        uses: astral-sh/setup-uv@v5
-        with:
-          version: "0.4.25"  # Best practice: pin uv version
-          enable-cache: true
-          cache-dependency-glob: "uv.lock"
+      # - name: Grab uv.lock
+      #   run: curl -o uv.lock -L https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/master/uv.lock
+      # - name: Install uv
+      #   uses: astral-sh/setup-uv@v5
+      #   with:
+      #     version: "0.4.25"  # Best practice: pin uv version
+      #     enable-cache: true
+      #     cache-dependency-glob: "uv.lock"
 
-      - name: Set up Python
-        run: uv python install python3.12
+      # - name: Set up Python
+      #   run: uv python install python3.12
 
       - name: Remove non-develop frontend build
         run: rm -rf "${{ env.UI_DIRECTORY }}/build"
