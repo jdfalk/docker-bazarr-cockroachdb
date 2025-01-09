@@ -1,5 +1,7 @@
 # # syntax=docker/dockerfile:1
 
+# I'm an idiot
+
 # FROM ghcr.io/linuxserver/unrar:latest AS unrar
 
 # FROM ghcr.io/linuxserver/baseimage-alpine:3.21
@@ -128,60 +130,60 @@ ENV TZ="Etc/UTC"
 RUN \
   echo "**** install build packages ****" && \
   apk add --no-cache --virtual=build-dependencies \
-    build-base \
-    cargo \
-    libffi-dev \
-    libpq-dev \
-    libxml2-dev \
-    libxslt-dev \
-    python3-dev && \
+  build-base \
+  cargo \
+  libffi-dev \
+  libpq-dev \
+  libxml2-dev \
+  libxslt-dev \
+  python3-dev && \
   echo "**** install packages ****" && \
   apk add --no-cache \
-    ffmpeg \
-    libxml2 \
-    libxslt \
-    mediainfo \
-    python3 && \
+  ffmpeg \
+  libxml2 \
+  libxslt \
+  mediainfo \
+  python3 && \
   echo "**** install bazarr ****" && \
   mkdir -p \
-    /app/bazarr/bin && \
+  /app/bazarr/bin && \
   if [ -z ${BAZARR_VERSION+x} ]; then \
-    BAZARR_VERSION=$(curl -sX GET "https://api.github.com/repos/jdfalk/bazarr-cockroachdb/releases/latest" \
-    | awk '/tag_name/{print $4;exit}' FS='[""]'); \
+  BAZARR_VERSION=$(curl -sX GET "https://api.github.com/repos/jdfalk/bazarr-cockroachdb/releases/latest" \
+  | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
   curl -o \
-    /tmp/bazarr.zip -L \
-    "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/bazarr.zip" && \
+  /tmp/bazarr.zip -L \
+  "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/bazarr.zip" && \
   unzip \
-    /tmp/bazarr.zip -d \
-    /app/bazarr/bin && \
+  /tmp/bazarr.zip -d \
+  /app/bazarr/bin && \
   rm -Rf /app/bazarr/bin/bin && \
   echo "UpdateMethod=docker\nBranch=master\nPackageVersion=${BAZARR_VERSION}\nPackageAuthor=linuxserver.io" > /app/bazarr/package_info && \
   curl -o \
-    /app/bazarr/bin/postgres-requirements.txt -L \
-    "https://raw.githubusercontent.com/morpheus65535/bazarr/master/postgres-requirements.txt" && \
+  /app/bazarr/bin/postgres-requirements.txt -L \
+  "https://raw.githubusercontent.com/morpheus65535/bazarr/master/postgres-requirements.txt" && \
   curl -o \
-    /app/bazarr/bin/requirements.txt -L \
-    "https://raw.githubusercontent.com/morpheus65535/bazarr/master/requirements.txt" && \
+  /app/bazarr/bin/requirements.txt -L \
+  "https://raw.githubusercontent.com/morpheus65535/bazarr/master/requirements.txt" && \
   echo "**** Install requirements ****" && \
   python3 -m venv /lsiopy && \
   pip install -U --no-cache-dir \
-    pip \
-    wheel && \
+  pip \
+  wheel && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
-    -r /app/bazarr/bin/requirements.txt \
-    -r /app/bazarr/bin/postgres-requirements.txt && \
+  -r /app/bazarr/bin/requirements.txt \
+  -r /app/bazarr/bin/postgres-requirements.txt && \
   echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
-    -r /app/bazarr/bin/requirements.txt && \
+  -r /app/bazarr/bin/requirements.txt && \
   printf "Linuxserver.io version: ${BAZARR_VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** clean up ****" && \
   apk del --purge \
-    build-dependencies && \
+  build-dependencies && \
   rm -rf \
-    $HOME/.cache \
-    $HOME/.cargo \
-    /tmp/*
+  $HOME/.cache \
+  $HOME/.cargo \
+  /tmp/*
 
 # add local files
 COPY root/ /
