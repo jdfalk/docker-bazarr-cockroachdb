@@ -50,10 +50,11 @@ RUN rm -Rf /app/bazarr/bin/bin && \
   echo "UpdateMethod=docker\nBranch=master\nPackageVersion=${BAZARR_VERSION}\nPackageAuthor=linuxserver.io" > /app/bazarr/package_info && \
   curl -o \
   /app/bazarr/bin/pyproject.toml -L \
-  https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/${BAZARR_VERSION}/pyproject.toml  && \
-  # "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/pyproject.toml" && \
-  uv sync --all-extras --dev && \
-  uv build && \
+  https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/${BAZARR_VERSION}/pyproject.toml
+
+# "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/pyproject.toml" && \
+RUN uv sync --all-extras --dev /app/bazarr/bin && \
+  uv build /app/bazarr/bin && \
   # curl -o \
   #   /app/bazarr/bin/postgres-requirements.txt -L \
   #   "https://raw.githubusercontent.com/morpheus65535/bazarr/${BAZARR_VERSION}/postgres-requirements.txt" && \
