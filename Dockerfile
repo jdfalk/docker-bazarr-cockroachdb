@@ -62,6 +62,8 @@ RUN rm -Rf /app/bazarr/bin/bin && \
 
 RUN uv venv /lsiopy
 
+COPY LICENSE /app/bazarr/bin
+
 # "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/pyproject.toml" && \
 RUN uv sync \
   --all-extras \
