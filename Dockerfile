@@ -29,7 +29,8 @@ RUN \
   libxml2 \
   libxslt \
   mediainfo \
-  python3
+  python3 \
+  uv
 
 RUN echo "**** install bazarr ****" && \
   mkdir -p \
