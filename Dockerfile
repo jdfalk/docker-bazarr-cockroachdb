@@ -53,33 +53,41 @@ RUN rm -Rf /app/bazarr/bin/bin && \
   curl -o \
   /app/bazarr/bin/pyproject.toml -L \
   https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/v1.5.2/pyproject.toml && \
-  cat /app/bazarr/bin/pyproject.toml && \
-  curl -o \
-  pyproject.toml -L \
-  https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/v1.5.2/pyproject.toml && \
-  cat pyproject.toml
+  cat /app/bazarr/bin/pyproject.toml
+# RUN curl -o \
+# pyproject.toml -L \
+# https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/refs/tags/v1.5.2/pyproject.toml && \
+# cat pyproject.toml
+
+RUN uv venv /lsiopy
 
 # "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/pyproject.toml" && \
-RUN uv sync --all-extras --dev --directory /app/bazarr/bin && \
-  # curl -o \
-  #   /app/bazarr/bin/postgres-requirements.txt -L \
-  #   "https://raw.githubusercontent.com/morpheus65535/bazarr/${BAZARR_VERSION}/postgres-requirements.txt" && \
-  # echo "**** Install requirements ****" && \
-  # python3 -m venv /lsiopy && \
-  # pip install -U --no-cache-dir \
-  #   pip \
-  #   wheel && \
-  # pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
-  #   -r /app/bazarr/bin/requirements.txt \
-  #   -r /app/bazarr/bin/postgres-requirements.txt && \
-  # echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
-  # pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
-  #   -r /app/bazarr/bin/requirements.txt && \
-  printf "Linuxserver.io version: ${BAZARR_VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
-  echo "**** clean up ****" && \
-  apk del --purge \
-  build-dependencies && \
-  rm -rf \
+RUN uv sync \
+  --all-extras \
+  --dev \
+  --directory /app/bazarr/bin \
+  --extra-index-url https://wheel-index.linuxserver.io/alpine-3.21/ \
+  --compile-bytecode
+
+# curl -o \
+#   /app/bazarr/bin/postgres-requirements.txt -L \
+#   "https://raw.githubusercontent.com/morpheus65535/bazarr/${BAZARR_VERSION}/postgres-requirements.txt" && \
+# echo "**** Install requirements ****" && \
+# python3 -m venv /lsiopy && \
+# pip install -U --no-cache-dir \
+#   pip \
+#   wheel && \
+# pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
+#   -r /app/bazarr/bin/requirements.txt \
+#   -r /app/bazarr/bin/postgres-requirements.txt && \
+# echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
+# pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
+#   -r /app/bazarr/bin/requirements.txt && \
+RUN  printf "Linuxserver.io version: ${BAZARR_VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
+  echo "**** clean up ****"
+RUN  apk del --purge \
+  build-dependencies
+RUN  rm -rf \
   $HOME/.cache \
   $HOME/.cargo \
   /tmp/*
