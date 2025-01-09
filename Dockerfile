@@ -170,12 +170,11 @@ RUN \
   pip install -U --no-cache-dir \
   pip \
   wheel && \
+  echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
+  echo "requests" >> /app/bazarr/bin/requirements.txt && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
   -r /app/bazarr/bin/requirements.txt \
   -r /app/bazarr/bin/postgres-requirements.txt && \
-  echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
-  pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
-  -r /app/bazarr/bin/requirements.txt && \
   printf "Linuxserver.io version: ${BAZARR_VERSION}\nBuild-date: ${BUILD_DATE}" > /build_version && \
   echo "**** clean up ****" && \
   apk del --purge \
