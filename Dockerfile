@@ -12,6 +12,7 @@ LABEL build_version="Linuxserver.io version:- ${BAZARR_VERSION} Build-date:- ${B
 LABEL maintainer="chbmb"
 # hard set UTC in case the user does not define it
 ENV TZ="Etc/UTC"
+ENV UV_PROJECT_ENVIRONMENT="/lsiopy"
 
 RUN \
   echo "**** install build packages ****" && \
@@ -66,8 +67,7 @@ RUN uv sync \
   --all-extras \
   --dev \
   --directory /app/bazarr/bin \
-  --extra-index-url https://wheel-index.linuxserver.io/alpine-3.21/ \
-  --compile-bytecode
+  --extra-index-url https://wheel-index.linuxserver.io/alpine-3.21/
 
 # curl -o \
 #   /app/bazarr/bin/postgres-requirements.txt -L \
