@@ -39,6 +39,8 @@ RUN echo "**** install bazarr ****" && \
   BAZARR_VERSION=$(curl -sX GET "https://api.github.com/repos/jdfalk/bazarr-cockroachdb/releases/latest" \
   | awk '/tag_name/{print $4;exit}' FS='[""]'); \
   fi && \
+  echo "Bazarr Version is ${BAZARR_VERSION}" && \
+  printf "Bazarr Version is ${BAZARR_VERSION}"  && \
   curl -o \
   /tmp/bazarr.zip -L \
   "https://github.com/jdfalk/bazarr-cockroachdb/releases/download/${BAZARR_VERSION}/bazarr.zip" && \
