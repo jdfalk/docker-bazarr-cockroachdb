@@ -59,6 +59,8 @@ jobs:
           tags: |
             # set latest tag for default branch
             type=raw,value=latest,enable={{is_default_branch}}
+      - name: Grab uv.lock
+        run: curl -o uv.lock -L https://raw.githubusercontent.com/jdfalk/bazarr-cockroachdb/master/uv.lock
       - name: Install uv
         uses: astral-sh/setup-uv@v5
         with:
