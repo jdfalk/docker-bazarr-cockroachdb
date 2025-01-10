@@ -173,11 +173,6 @@ RUN \
   echo "semver" >> /app/bazarr/bin/requirements.txt && \
   echo "pretty" >> /app/bazarr/bin/requirements.txt && \
   echo "pytz" >> /app/bazarr/bin/requirements.txt && \
-  echo "subliminal_patch" >> /app/bazarr/bin/requirements.txt && \
-  echo "pytz_deprecation_shim" >> /app/bazarr/bin/requirements.txt && \
-  echo "apprise" >> /app/bazarr/bin/requirements.txt && \
-  echo "apscheduler" >> /app/bazarr/bin/requirements.txt && \
-  echo "tzlocal" >> /app/bazarr/bin/requirements.txt && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
   -r /app/bazarr/bin/requirements.txt \
   -r /app/bazarr/bin/postgres-requirements.txt && \
