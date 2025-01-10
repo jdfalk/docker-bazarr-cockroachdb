@@ -173,6 +173,20 @@ RUN \
   echo "semver" >> /app/bazarr/bin/requirements.txt && \
   echo "pretty" >> /app/bazarr/bin/requirements.txt && \
   echo "pytz" >> /app/bazarr/bin/requirements.txt && \
+  echo "subliminal_patch" >> /app/bazarr/bin/requirements.txt && \
+  echo "pytz_deprecation_shim" >> /app/bazarr/bin/requirements.txt && \
+  echo "apprise" >> /app/bazarr/bin/requirements.txt && \
+  echo "apscheduler" >> /app/bazarr/bin/requirements.txt && \
+  echo "tzlocal" >> /app/bazarr/bin/requirements.txt && \
+  echo "dynaconf" >> /app/bazarr/bin/requirements.txt && \
+  echo "subliminal_patch.core" >> /app/bazarr/bin/requirements.txt && \
+  echo "flask_restx" >> /app/bazarr/bin/requirements.txt && \
+  echo "unidecode" >> /app/bazarr/bin/requirements.txt && \
+  echo "textdistance" >> /app/bazarr/bin/requirements.txt && \
+  echo "subzero.language" >> /app/bazarr/bin/requirements.txt && \
+  echo "subliminal_patch.exceptions" >> /app/bazarr/bin/requirements.txt && \
+  echo "subliminal_patch.extensions" >> /app/bazarr/bin/requirements.txt && \
+  echo "waitress.server" >> /app/bazarr/bin/requirements.txt && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
   -r /app/bazarr/bin/requirements.txt \
   -r /app/bazarr/bin/postgres-requirements.txt && \
