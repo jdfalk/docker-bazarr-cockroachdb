@@ -13,7 +13,7 @@ RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb"/' /app/bazarr
   sed -i.bak "s/elif bind\.engine\.name == \'postgresql\':/# PostgreSQL detected/g" /app/bazarr/bin/migrations/env.py && \
   sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL DEFERRED;\"\))/# Constraints deferred/' /app/bazarr/bin/migrations/env.py && \
   sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL IMMEDIATE;\"\))/# Constraints immediate/' /app/bazarr/bin/migrations/env.py && \
-  sed -i.bak 's/engine\ =\ create_engine\(url,\ poolclass=NullPool,\ isolation_level=\"AUTOCOMMIT\"\)/engine\ =\ create_engine\(url,\ poolclass=NullPool,\ isolation_level=\"AUTOCOMMIT\",\ pool_pre_ping=True\)/' /app/bazarr/bin/bazarr/app/database.py
+  sed -i.bak 's/isolation_level=\"AUTOCOMMIT\"/isolation_level=\"AUTOCOMMIT\",\ pool_pre_ping=True/' /app/bazarr/bin/bazarr/app/database.py
 
 
 # ports and volumes
