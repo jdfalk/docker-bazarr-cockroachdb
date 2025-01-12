@@ -2,6 +2,8 @@ FROM lscr.io/linuxserver/bazarr:development
 
 # RUN busybox sed -i.bak ':a;N;$!ba;s/self\.server_version_info = self\._get_server_version_info(\n[[:space:]]*connection\n[[:space:]]*)/self.server_version_info = (10,0,0)/' /app/bazarr/bin/libs/sqlalchemy/engine/default.py
 RUN echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
+  "psycopg[binary]" >> /app/bazarr/bin/requirements.txt && \
+  "psycopg[pool]" >> /app/bazarr/bin/requirements.txt && \
   python3 -m venv /lsiopy && \
   pip install -U --no-cache-dir \
   pip \
@@ -9,7 +11,7 @@ RUN echo "sqlalchemy-cockroachdb" >> /app/bazarr/bin/requirements.txt && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
   -r /app/bazarr/bin/requirements.txt
 
-RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb"/' /app/bazarr/bin/bazarr/app/database.py && \
+RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb+psycopg"/' /app/bazarr/bin/bazarr/app/database.py && \
   sed -i.bak "s/elif bind\.engine\.name == \'postgresql\':/# PostgreSQL detected/g" /app/bazarr/bin/migrations/env.py && \
   sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL DEFERRED;\"\))/# Constraints deferred/' /app/bazarr/bin/migrations/env.py && \
   sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL IMMEDIATE;\"\))/# Constraints immediate/' /app/bazarr/bin/migrations/env.py && \
