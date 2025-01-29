@@ -16,7 +16,7 @@ RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb+psycopg2"/' /a
   sed -i.bak "s/elif bind\.engine\.name == \'postgresql\':/# PostgreSQL detected/g" /app/bazarr/bin/migrations/env.py && \
   sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL DEFERRED;\"\))/# Constraints deferred/' /app/bazarr/bin/migrations/env.py && \
   sed -i.bak 's/bind\.execute(text\(\"SET CONSTRAINTS ALL IMMEDIATE;\"\))/# Constraints immediate/' /app/bazarr/bin/migrations/env.py && \
-  sed -i.bak 's/poolclass=NullPool\,\ isolation_level=\"AUTOCOMMIT\"/poolclass=QueuePool\,\ pool_size=20\,\ isolation_level=\"AUTOCOMMIT\",\ pool_pre_ping=True/' /app/bazarr/bin/bazarr/app/database.py && \
+  sed -i.bak '57s/poolclass=NullPool\,\ isolation_level=\"AUTOCOMMIT\"/poolclass=QueuePool\,\ pool_size=20\,\ isolation_level=\"AUTOCOMMIT\",\ pool_pre_ping=True/' /app/bazarr/bin/bazarr/app/database.py && \
   sed -i.bak 's/from\ sqlalchemy\.pool\ import\ NullPool/from\ sqlalchemy\.pool\ import\ NullPool\, QueuePool/' /app/bazarr/bin/bazarr/app/database.py
 # sed -i.bak 's/isolation_level=\"AUTOCOMMIT\"/pool_pre_ping=True/' /app/bazarr/bin/bazarr/app/database.py
 
