@@ -11,6 +11,7 @@ RUN echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/a
   wheel && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
   -r /app/bazarr/bin/requirements.txt && \
+  apk del ffmpeg && \
   apk add --no-cache ffmpeg@testing
 
 RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb+psycopg2"/' /app/bazarr/bin/bazarr/app/database.py && \
