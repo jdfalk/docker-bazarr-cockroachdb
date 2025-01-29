@@ -10,7 +10,8 @@ RUN echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/a
   pip \
   wheel && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
-  -r /app/bazarr/bin/requirements.txt
+  -r /app/bazarr/bin/requirements.txt && \
+  apk add --no-cache sed 
 
 RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb+psycopg2"/' /app/bazarr/bin/bazarr/app/database.py && \
   sed -i.bak "s/elif bind\.engine\.name == \'postgresql\':/# PostgreSQL detected/g" /app/bazarr/bin/migrations/env.py && \
@@ -25,3 +26,6 @@ RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb+psycopg2"/' /a
 EXPOSE 6767
 
 VOLUME /config
+
+
+# sed -i.bak '57s/poolclass=NullPool\,\ isolation_level=\"AUTOCOMMIT\"/poolclass=QueuePool\,\ pool_size=20\,\ isolation_level=\"AUTOCOMMIT\",\ pool_pre_ping=True/;tx;q1;:x' /app/bazarr/bin/bazarr/app/database.py && \
