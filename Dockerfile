@@ -10,9 +10,7 @@ RUN echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/a
   pip \
   wheel && \
   pip install -U --no-cache-dir --find-links https://wheel-index.linuxserver.io/alpine-3.21/ \
-  -r /app/bazarr/bin/requirements.txt && \
-  apk del ffmpeg && \
-  apk add --no-cache ffmpeg@testing
+  -r /app/bazarr/bin/requirements.txt
 
 RUN sed -i.bak 's/drivername="postgresql"/drivername="cockroachdb+psycopg2"/' /app/bazarr/bin/bazarr/app/database.py && \
   sed -i.bak "s/elif bind\.engine\.name == \'postgresql\':/# PostgreSQL detected/g" /app/bazarr/bin/migrations/env.py && \
